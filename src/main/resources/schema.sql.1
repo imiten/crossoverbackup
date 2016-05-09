@@ -1,0 +1,39 @@
+create table users (
+  username varchar(256),
+  password varchar(256),
+  enabled boolean,
+  primakry key (username)
+);
+
+create table authorities (
+  username varchar(256),
+  authority varchar(256)
+);
+
+create table backups (
+  id int not null auto_increment,
+  name varchar(255) not null,
+  srcip varchar(128) not null,
+  primary key (id)
+);
+
+create table configuration (
+  id int not null auto_increment,
+  source_ip varchar(256), 
+  source_path varchar(1024), 
+  source_user varchar(128), 
+  source_password varchar(64),
+  destination_ip varchar(256),
+  destination_path varchar(1024), 
+  destination_user varchar(128), 
+  destination_password varchar(64), 
+  enabled boolean, 
+  create_timestamp timestamp, 
+  update_timestamp timestamp, 
+  create_user varchar(256), 
+  update_user varchar(256), 
+  run_start_timestamp timestamp,
+  primary key (id),
+  foreign key (create_user) references users(username),
+  foreign key (update_user) references users(username)
+);
