@@ -1,0 +1,62 @@
+<html>
+	<head>
+		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
+		
+		<script src="js/angular.min.js"></script>
+	    <script src="js/angular-resource.min.js"></script>
+	    <script src="js/angular-route.min.js"></script>
+	    <script src="js/angular-mocks.js"></script>
+	    <script src="js/jquery-1.12.3.min.js"></script>
+	    <script src="js/bootstrap.min.js"></script>
+
+	    <!-- App libs -->
+	    <script src="app/app.js"></script>
+	    <script src="app/controllers/controllers.js"></script>
+	    <script src="app/controllers/editcontrollers.js"></script>
+	    <script src="app/factories/configurationFactory.js"></script>
+	</head>
+	<body>
+	</body>
+	<script type="text/javascript">
+
+	describe('configurations', function () {
+		var $controller;
+		
+		beforeEach(module('backupsApp'));
+		
+		beforeEach(inject(function(_$controller_){$controller = _$controller_;}));
+		
+		it('insert new configuration', function ($routeParams, configurationFactory) {
+			var $scope = {};
+			var controller = $controller('backupsController', { $scope: $scope, $routeParams: $routeParams, configurationFactory: configurationFactory });
+			console.log("dumping");
+			if(configurationFactory) {
+			  angular.mock.dump(configurationFactory);
+			} else {
+				console.log("null config");
+			}
+			var newBackup = {};
+			newBackup.name = 'testbackup';
+			newBackup.runStartTimestamp = "2020/01/01 12:00";//yyyy/MM/dd HH:mm
+			newBackup.sourceIP = "192.168.1.5";
+			newBackup.sourcePath = "/usr/data";
+			newBackup.sourceUser = "srcuser";
+			newBackup.sourcePassword = "password";
+			newBackup.destinationIP = "192.168.1.6";
+			newBackup.destinationPath = "/usr/archives";
+			newBackup.destinationUser = "destuser";
+			newBackup.destinationPassword = "password";
+			
+			
+			$scope.newBackup = newBackup;
+			$scope.insertBackup();
+			expect($scope.backups.length).toBe(1);
+		});	
+	});
+
+	
+	</script>
+</html>

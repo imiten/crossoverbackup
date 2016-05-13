@@ -1,0 +1,63 @@
+<div class="container">
+  <header><h3>Backups</h3></header>
+  <div class="row">
+    <div class="span2">
+      Backup Name:
+      <br />
+      <input ng-model="newBackup.name" ng-trim="false" type="text" placeholder="Backup Name" required>
+      <input ng-model="newBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required>
+      <!-- input ng-model="newBackup.runStartTimestamp" type="text" placeholder="yyyy/MM/dd HH:mm" pattern="\d{}4/\d{2}/\d{2} \d{2}:\d{2}" required -->
+      
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="span4">
+      Source:
+      <br />
+      <input ng-model="newBackup.sourceIP" type="text" placeholder="Source IP" required>
+      <input ng-model="newBackup.sourcePath" type="text" placeholder="Source Path" required>
+      <input ng-model="newBackup.sourceUser" type="text" placeholder="Source User" required>
+      <input ng-model="newBackup.sourcePassword" type="text" placeholder="Source Password" required>
+      
+    </div>
+  </div>
+  
+  <div class="row">
+    <div class="span4">
+      Destination:
+      <br />
+      <input ng-model="newBackup.destinationIP" type="text" placeholder="Destination IP" required>
+      <input ng-model="newBackup.destinationPath" type="text" placeholder="Destination Path" required>
+      <input ng-model="newBackup.destinationUser" type="text" placeholder="Destination User" required>
+      <input ng-model="newBackup.destinationPassword" type="text" placeholder="Destination Password" required>
+      
+    </div>
+  </div>
+  
+  
+  <div class="row">
+    <div class="span1">
+      <button id="submitBackup" class="btn btn-primary" type="button" 
+                    ng-disabled="!newBackup.name || !newBackup.sourceIP || !newBackup.sourcePath || !newBackup.sourceUser || !newBackup.sourcePassword || !newBackup.destinationIP || !newBackup.destinationPath || !newBackup.destinationUser || !newBackup.destinationPassword" 
+                    ng-click="insertBackup()">Add Backup</button>
+    </div>
+  </div>
+  <div class="row">
+    <table class="table">
+      <thead>
+        <tr><th>Backup Name</th><th>Src IP</th></tr>
+      <thead> 
+      
+    <tr ng-repeat="b in backups">
+      <td><a href="#/backups/{{b.id}}">{{ b.name }}</a></td>
+      <td> {{ b.srcip }}</td>
+      <td>
+        <button  class="btn btn-primary" type="button" 
+                    ng-click="deleteBackup(b.id, $index)">Delete</button>
+      </td>
+      <td><a href="#/backups/update/{{b.id}}">Edit</a></td>
+    </tr>
+    </table>
+  </div>
+</div>
