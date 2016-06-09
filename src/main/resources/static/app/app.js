@@ -1,4 +1,4 @@
-var app = angular.module('backupsApp', ['ngRoute', 'ngResource']);
+var app = angular.module('backupsApp', ['ngRoute', 'ngResource', 'ui.bootstrap']);
 
 app.config(function ($routeProvider) {
   $routeProvider
@@ -40,3 +40,17 @@ app.config(function ($provide, $httpProvider) {
       $httpProvider.interceptors.push('httpInterceptor');
 });
 
+
+var directives = angular.module('directives');
+
+directives.directive('showtab',
+    function () {
+        return {
+            link: function (scope, element, attrs) {
+                element.click(function(e) {
+                    e.preventDefault();
+                    $(element).tab('show');
+                });
+            }
+        };
+    });
