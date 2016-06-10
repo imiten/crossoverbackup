@@ -44,7 +44,7 @@ app.controller('editBackupsController', function($scope, $routeParams, configura
         //$scope.newBackup.srcip = '';
     };
 
-  $scope.doBack = function() { window.history.back(); }
+  $scope.doBack = function() { $scope.active = 1; window.history.back(); }
 
 });
 

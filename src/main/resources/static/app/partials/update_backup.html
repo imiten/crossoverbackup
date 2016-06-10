@@ -1,54 +1,50 @@
 <div class="container">
-  <header><h3>Backups</h3></header>
-  <div class="row">
-    <div class="span1">
-      Backup Id:
-      <br />
-      <input ng-model="currentBackup"  type="text" readonly placeholder="Backup Id">
+  <h2>Backups App</h2>
+  <h3>Edit Backup</h3>
+  <form role="form">
+    <div class="row">
+      <div class="form-group col-md-6">
+	<label for="id_name">Backup Name:</label>
+	<input id="id_name" class="form-control margin-bottom" ng-model="editBackup.name" ng-trim="false" type="text" placeholder="Backup Name" required>
+	<label for="id_runtime">Run at:</label>
+	<input id="id_runtime" class="form-control" ng-model="editBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required>
+      </div>
     </div>
-  </div>
-   <div class="row">
-    <div class="span1">
-      Backup Name:
-      <br />
-      <input ng-model="editBackup.name" type="text" placeholder="Backup Name" required>
-      <input ng-model="editBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm"  required>
-      
-    </div>
-  </div>
 
-  <div class="row">
-    <div class="span4">
-      Source:
-      <br />
-      <input ng-model="editBackup.sourceIP" type="text" placeholder="Source IP" required>
-      <input ng-model="editBackup.sourcePath" type="text" placeholder="Source Path" required>
-      <input ng-model="editBackup.sourceUser" type="text" placeholder="Source User" required>
-      <input ng-model="editBackup.sourcePassword" type="text" placeholder="Source Password" required>
-      
+    <div class="row">
+      <div class="panel panel-default col-md-6">
+	<div class="panel-heading">Source</div>
+	<div class="panel-body form-group">
+	  <input class="form-control margin-bottom" ng-model="editBackup.sourceIP" type="text" placeholder="Source IP" required>
+	  <input class="form-control margin-bottom" ng-model="editBackup.sourcePath" type="text" placeholder="Source Path" required>
+	  <input class="form-control margin-bottom" ng-model="editBackup.sourceUser" type="text" placeholder="Source User" required>
+	  <input class="form-control" ng-model="editBackup.sourcePassword" type="text" placeholder="Source Password" required>
+	</div>
+      </div>
     </div>
-  </div>
-  
-  <div class="row">
-    <div class="span4">
-      Destination:
-      <br />
-      <input ng-model="editBackup.destinationIP" type="text" placeholder="Destination IP" required>
-      <input ng-model="editBackup.destinationPath" type="text" placeholder="Destination Path" required>
-      <input ng-model="editBackup.destinationUser" type="text" placeholder="Destination User" required>
-      <input ng-model="editBackup.destinationPassword" type="text" placeholder="Destination Password" required>
-      
-    </div>
-  </div>
-  
-  
-   <div class="row">
-    <div class="span2">
-      <button id="submitBackup" class="btn btn-primary" type="button" 
-                    ng-disabled="!editBackup.name || !editBackup.sourceIP || !editBackup.sourcePath || !editBackup.sourceUser || !editBackup.sourcePassword || !editBackup.destinationIP || !editBackup.destinationPath || !editBackup.destinationUser || !editBackup.destinationPassword" 
-                    ng-click="updateBackup()">Update Backup</button>
 
-      <button type="button" ng-click="doBack()">Back</button>
+    <div class="row">
+      <div class="panel panel-default col-md-6">
+	<div class="panel-heading">Destination</div>
+	<div class="panel-body form-group">
+	  <input class="form-control margin-bottom" ng-model="editBackup.destinationIP" type="text" placeholder="Destination IP" required>
+	  <input  class="form-control margin-bottom" ng-model="editBackup.destinationPath" type="text" placeholder="Destination Path" required>
+	  <input class="form-control margin-bottom" ng-model="editBackup.destinationUser" type="text" placeholder="Destination User" required>
+	  <input class="form-control" ng-model="editBackup.destinationPassword" type="text" placeholder="Destination Password" required>
+	</div>
+      </div>
     </div>
-  </div>
+
+
+    <div class="row">
+      <div class="form-group col-md-2">
+	<button id="submitBackup" class="btn btn-primary" type="button" 
+	  ng-disabled="!editBackup.name || !editBackup.sourceIP || !editBackup.sourcePath || !editBackup.sourceUser || !editBackup.sourcePassword || !editBackup.destinationIP || !editBackup.destinationPath || !editBackup.destinationUser || !editBackup.destinationPassword" 
+	  ng-click="updateBackup()">Update Backup</button>
+	<button type="button" class="btn btn-primary" ng-click="doBack()">Back</button>
+
+      </div>
+    </div>
+  </form>
 </div>
+

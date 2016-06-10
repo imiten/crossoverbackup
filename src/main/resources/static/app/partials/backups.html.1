@@ -1,0 +1,76 @@
+<div class="container">
+  <h2>Backups App</h2>
+  <ul class="nav nav-pills" >
+    <li class="active"><a data-toggle="pill" href="#new_backup">New Backup</a></li>
+    <li><a data-toggle="pill" href="#backuplist">Backups</a></li>
+  </ul>
+  <div class="tab-content"> 
+    <div id="new_backup" class="tab-pane fade in active">
+      <h3>Crete New Backup</h3>
+      <form role="form">
+	<div class="row">
+	  <div class="form-group col-md-6">
+	    <label for="id_name">Backup Name:</label>
+	    <input id="id_name" class="form-control margin-bottom" ng-model="newBackup.name" ng-trim="false" type="text" placeholder="Backup Name" required>
+	    <label for="id_runtime">Run at:</label>
+	    <input id="id_runtime" class="form-control" ng-model="newBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required>
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="panel panel-default col-md-6">
+	    <div class="panel-heading">Source</div>
+	    <div class="panel-body form-group">
+	      <input class="form-control margin-bottom" ng-model="newBackup.sourceIP" type="text" placeholder="Source IP" required>
+	      <input class="form-control margin-bottom" ng-model="newBackup.sourcePath" type="text" placeholder="Source Path" required>
+	      <input class="form-control margin-bottom" ng-model="newBackup.sourceUser" type="text" placeholder="Source User" required>
+	      <input class="form-control" ng-model="newBackup.sourcePassword" type="text" placeholder="Source Password" required>
+	    </div> 
+	  </div>
+	</div>
+
+	<div class="row">
+	  <div class="panel panel-default col-md-6">
+	    <div class="panel-heading">Destination</div>
+	    <div class="panel-body form-group">
+	      <input class="form-control margin-bottom" ng-model="newBackup.destinationIP" type="text" placeholder="Destination IP" required>
+	      <input  class="form-control margin-bottom" ng-model="newBackup.destinationPath" type="text" placeholder="Destination Path" required>
+	      <input class="form-control margin-bottom" ng-model="newBackup.destinationUser" type="text" placeholder="Destination User" required>
+	      <input class="form-control" ng-model="newBackup.destinationPassword" type="text" placeholder="Destination Password" required>
+	    </div> 
+	  </div>
+	</div>
+
+
+	<div class="row">
+	  <div class="form-group col-md-1">
+	    <button id="submitBackup" class="btn btn-primary" type="button" 
+	      ng-disabled="!newBackup.name || !newBackup.sourceIP || !newBackup.sourcePath || !newBackup.sourceUser || !newBackup.sourcePassword || !newBackup.destinationIP || !newBackup.destinationPath || !newBackup.destinationUser || !newBackup.destinationPassword" 
+	      ng-click="insertBackup()">Add Backup</button>
+	  </div>
+	</div>
+      </form>
+    </div> <!-- tab-pane new_backup -->
+    <div id="backuplist" class="tab-pane fade">
+      <div class="row">
+	<div class="col-md-6">
+	  <table class="table">
+	    <thead>
+	      <tr><th>Backup Name</th><th>Src IP</th></tr>
+	    </thead> 
+
+	    <tr ng-repeat="b in backups">
+	      <td><a href="#/backups/{{b.id}}">{{ b.name }}</a></td>
+	      <td> {{ b.srcip }}</td>
+	      <td>
+		<button  class="btn btn-primary" type="button" 
+		  ng-click="deleteBackup(b.id, $index)">Delete</button>
+	      </td>
+	      <td><a href="#/backups/update/{{b.id}}">Edit</a></td>
+	    </tr>
+	  </table>
+	</div>
+      </div>
+    </div> <!-- tab-pane backuplist -->
+  </div>
+</div>
