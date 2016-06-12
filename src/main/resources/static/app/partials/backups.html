@@ -49,7 +49,7 @@
     </div>
   </form>
   </uib-tab> <!-- tab-pane new_backup -->
-  <uib-tab id="backuplist" index="1" heading="Backup List">
+  <uib-tab id="backuplist" index="1" heading="Backup List" >
   <div class="row">
     <div class="col-md-6">
       <table class="table">
@@ -65,7 +65,7 @@
 	    <button  class="btn btn-primary" type="button"
 	      ng-click="deleteBackup(b.id, $index)">Delete</button>
 	  </td>
-	  <td><a href="#/backups/update/{{b.id}}">Edit</a></td>
+	  <td><a class="btn btn-primary" href="#/backups/update/{{b.id}}">Edit</a></td>
 	</tr>
       </table>
     </div>

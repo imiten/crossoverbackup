@@ -1,12 +1,16 @@
 app.controller('backupsController', function($scope, $routeParams, configurationFactory) {
   $scope.currentBackup = '';
-
+  if($routeParams.activeID) {
+    $scope.active = $routeParams.activeID;
+  } else {
+    $scope.active = 0;
+  }
   init();
 
   function init() {
 	  configurationFactory.getConfigurationList().success(function(data, status) {
       $scope.backups = data;
-      console.log(JSON.stringify(data));
+      console.log("init:"  + JSON.stringify(data));
 
     });
     $scope.currentBackup = $routeParams.backupID;
@@ -19,6 +23,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
       );
 
     }
+
   }//init
 
   $scope.insertBackup = function () {
@@ -32,13 +37,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
   $scope.updateBackup = function () {
 	  configurationFactory.updateConfiguration($scope.editBackup).success(
           function(data, status) {
-           for (var j=0; j< $scope.backups.length; j++) {
-             if ($scope.backups[j].id == data.id) {
-               $scope.backups.splice(j, 0, data);
-               break;
-             }
              console.log("update:" + JSON.stringify(data));
-           }//for
           });
     };
 
@@ -52,7 +51,13 @@ app.controller('backupsController', function($scope, $routeParams, configuration
    
   };
 
-});
+  if($routeParams.activeID) {
+    $scope.active = $routeParams.activeID;
+    console.log("route active id=" + $scope.active);
+  }
+  $scope.doBack = function() { $scope.active = 1; window.history.back(); }
 
+
+});
 
 

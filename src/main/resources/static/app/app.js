@@ -7,6 +7,11 @@ app.config(function ($routeProvider) {
         controller: 'backupsController',
         templateUrl: 'app/partials/backups.html'
       })
+    .when('/backups/active/:activeID',
+      {
+        controller: 'backupsController',
+        templateUrl: 'app/partials/backups.html'
+      })
     .when('/backups/:backupID',
       {
         controller: 'backupsController',
@@ -14,7 +19,7 @@ app.config(function ($routeProvider) {
       })
     .when('/backups/update/:backupID',
       {
-        controller: 'editBackupsController',
+        controller: 'backupsController',
         templateUrl: 'app/partials/update_backup.html'
       })
     .otherwise({redirectTo: '/backups'});
