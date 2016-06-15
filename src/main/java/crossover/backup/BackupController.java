@@ -54,7 +54,7 @@ public class BackupController  extends WebMvcConfigurerAdapter {
          @Override
          protected void configure(HttpSecurity http) throws Exception {
              http.authorizeRequests()
-                 .antMatchers("/", "/anonymous/**").permitAll()
+                 .antMatchers("/", "/anonymous/**", "/testing/**").permitAll()
                  .antMatchers("/admin/**").access("hasRole('ROLE_ADMIN')")
                  .antMatchers("/user/**").access("hasAnyRole('ROLE_ADMIN', 'ROLE_USER')")
                  .and().httpBasic().and().logout().permitAll();
@@ -108,7 +108,7 @@ public class BackupController  extends WebMvcConfigurerAdapter {
 
 
 
-    @RequestMapping("/anonymous")
+    @RequestMapping(value={"/anonymous"})
     @ResponseBody
     String anonymous() {
         return "Hello World anonymous!";

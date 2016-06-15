@@ -1,10 +1,8 @@
 app.controller('backupsController', function($scope, $routeParams, configurationFactory) {
   $scope.currentBackup = '';
   if($routeParams.activeID) {
-    $scope.active = $routeParams.activeID;
-  } else {
-    $scope.active = 0;
-  }
+    $scope.active = parseInt($routeParams.activeID);
+  } 
   init();
 
   function init() {
@@ -51,11 +49,6 @@ app.controller('backupsController', function($scope, $routeParams, configuration
    
   };
 
-  if($routeParams.activeID) {
-    $scope.active = $routeParams.activeID;
-    console.log("route active id=" + $scope.active);
-  }
-  $scope.doBack = function() { $scope.active = 1; window.history.back(); }
 
 
 });
