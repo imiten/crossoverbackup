@@ -11,6 +11,9 @@ import org.springframework.boot.test.WebIntegrationTest;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import crossover.backup.BackupController;
+import crossover.backup.ConfiglogEntity;
+import crossover.backup.ConfiglogRepository;
+import crossover.backup.ConfiglogVO;
 import crossover.backup.ConfigurationEntity;
 import crossover.backup.ConfigurationRepository;
 
@@ -20,8 +23,11 @@ import crossover.backup.ConfigurationRepository;
 public class ConfigurationRepositoryTest {
   @Autowired
   ConfigurationRepository repository;
+
+  @Autowired
+  ConfiglogRepository configlogRepository;
   
-    @Test
+    //@Test
 	public void insert() throws Exception {
 		ConfigurationEntity ce = new ConfigurationEntity("local", 
 				"10.135.140.11", "d\\software", "miten.mehta", "password1",
@@ -38,5 +44,23 @@ public class ConfigurationRepositoryTest {
 
 	}
     
+
+    
+    @Test
+	public void get() throws Exception {
+		
+		ConfigurationEntity ce = repository.findOne(4);
+		Assert.assertEquals("name not local1- update fails", 4, ce.getId());
+		
+		ConfiglogVO vo = new ConfiglogVO();
+		vo.log = "Starting...";
+		vo.status = ConfiglogVO.Status.STARTED.ordinal();
+		vo.srcip = ce.getSourceIP();
+		ConfiglogEntity ce1 = new ConfiglogEntity(vo);
+		ce1.setConfigurationEntity(ce);
+		configlogRepository.save(ce1);		
+
+	}
+
     
 }

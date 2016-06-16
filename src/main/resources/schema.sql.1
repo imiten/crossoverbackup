@@ -37,3 +37,14 @@ create table configuration (
   foreign key (create_user) references users(username),
   foreign key (update_user) references users(username)
 );
+
+create table configlog (
+  id int not null auto_increment,
+  log varchar(256) not null,
+  configid int not null,
+  status int not null,
+  primary key (id),
+  foreign key (configid) references configuration(id)
+);
+
+

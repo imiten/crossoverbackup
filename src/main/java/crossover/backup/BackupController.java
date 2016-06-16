@@ -43,6 +43,8 @@ public class BackupController  extends WebMvcConfigurerAdapter {
     @Autowired
     ConfigurationRepository configurationRepository;
 
+    @Autowired
+    ConfiglogRepository configlogRepository;
 
     @Order(SecurityProperties.ACCESS_OVERRIDE_ORDER)
     protected static class ApplicationSecurity extends WebSecurityConfigurerAdapter {
@@ -167,7 +169,7 @@ public class BackupController  extends WebMvcConfigurerAdapter {
     @ResponseBody
     List<ConfigurationEntity> getConfigurationList() {
       List<ConfigurationEntity> response = new ArrayList<ConfigurationEntity>();
-      BackupVO bvo;
+      
       for(ConfigurationEntity b: configurationRepository.findAll()) {
         
          response.add(b);
@@ -175,6 +177,34 @@ public class BackupController  extends WebMvcConfigurerAdapter {
       return response;
     }
 
+    
+    @RequestMapping(value = "/agent/{backupID}/configlog", method = RequestMethod.GET)
+    @ResponseBody
+    List<ConfiglogEntity> getConfiglogList(@PathVariable int backupID) {
+      List<ConfiglogEntity> response = new ArrayList<ConfiglogEntity>();
+      for(ConfiglogEntity b: configlogRepository.findByBackupID(backupID)) {
+        
+         response.add(b);
+      }
+      return response;
+    }
+    
+    
+    @RequestMapping(value = "/agent/configlog", method = RequestMethod.POST)
+    @ResponseBody
+    @ResponseStatus(HttpStatus.CREATED)
+    ConfiglogEntity insertConfiglog(@Valid @RequestBody ConfiglogEntity ce) {
+    	//ce.setCreateUser("admin");
+    	//getRemoteUser
+//    	UserDetails userDetails =
+//    			 (UserDetails)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+//    	ce.setCreateUser(userDetails.getUsername());
+//    	
+        ConfiglogEntity b = configlogRepository.save(ce);
+        log.debug(b.toString()); 
+        return b;
+    }
+    
     public static void main(String[] args) throws Exception {
         SpringApplication.run(BackupController.class, args);
     }
