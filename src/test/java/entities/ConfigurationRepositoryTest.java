@@ -47,10 +47,10 @@ public class ConfigurationRepositoryTest {
 
     
     @Test
-	public void get() throws Exception {
+	public void testConfiglogInsert() throws Exception {
 		
-		ConfigurationEntity ce = repository.findOne(4);
-		Assert.assertEquals("name not local1- update fails", 4, ce.getId());
+		ConfigurationEntity ce = repository.findOne(1);
+		Assert.assertEquals("name not local1- update fails", 1, ce.getId());
 		
 		ConfiglogVO vo = new ConfiglogVO();
 		vo.log = "Starting...";

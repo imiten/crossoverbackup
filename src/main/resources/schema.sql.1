@@ -43,6 +43,7 @@ create table configlog (
   log varchar(256) not null,
   configid int not null,
   status int not null,
+  date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
   primary key (id),
   foreign key (configid) references configuration(id)
 );
