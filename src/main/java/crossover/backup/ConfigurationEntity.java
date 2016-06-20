@@ -93,6 +93,23 @@ public class ConfigurationEntity implements Serializable {
 	@NotNull(message = "error.ce.runStartTimestamp.notnull")
 	private Date runStartTimestamp;
 
+	@Column(name="run_end_timestamp", nullable = true)
+	@Temporal(TemporalType.TIMESTAMP) 
+	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm")
+	@NotNull(message = "error.ce.runStartTimestamp.notnull")
+	private Date runEndTimestamp;
+
+	
+
+	public Date getRunEndTimestamp() {
+		return runEndTimestamp;
+	}
+
+
+	public void setRunEndTimestamp(Date runEndTimestamp) {
+		this.runEndTimestamp = runEndTimestamp;
+	}
+
 
 	public ConfigurationEntity(String name, String sourceIP, String sourcePath, String sourceUser, String sourcePassword,
 			String destinationIP, String destinationPath, String destinationUser, String destinationPassword, Date runStartTimestamp) {

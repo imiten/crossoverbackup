@@ -1,6 +1,7 @@
 package crossover.backup;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.sql.DataSource;
@@ -188,9 +189,17 @@ public class BackupController  extends WebMvcConfigurerAdapter {
 	@ResponseStatus(HttpStatus.CREATED)
 	public ConfiglogEntity insertConfiglog(@Valid @RequestBody ConfiglogVO ce) {
 		ConfigurationEntity centity = getConfiguration(ce.configid);
+		
 		if(null == centity) {
 			throw new RuntimeException("config id not found:" + ce.configid);
 		}
+		if(null != centity.getRunEndTimestamp()) {
+			throw new RuntimeException(String.format("configid=%d already completed at %s", ce.configid, centity.getRunEndTimestamp()));
+		}
+		if(ce.status == ConfiglogVO.Status.DONE.ordinal()) {
+			centity.setRunEndTimestamp(new Date());
+		}
+		//log.debug(String.format("param configid=%d, db srcip=%s", ce.configid, centity.getSourceIP()));
 		ConfiglogEntity ce1 = new ConfiglogEntity(ce);
 		ce1.setConfigurationEntity(centity);
 		ConfiglogEntity b = configlogRepository.save(ce1);

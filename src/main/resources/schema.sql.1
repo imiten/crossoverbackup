@@ -33,6 +33,7 @@ create table configuration (
   create_user varchar(256) not null,
   update_user varchar(256),
   run_start_timestamp timestamp not null,
+  run_end_timestamp timestamp null,
   primary key (id),
   foreign key (create_user) references users(username),
   foreign key (update_user) references users(username)

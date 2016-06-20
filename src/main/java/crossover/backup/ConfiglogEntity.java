@@ -2,6 +2,7 @@ package crossover.backup;
 
 import java.io.Serializable;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class ConfiglogEntity implements Serializable {
 	@Column(name="status", nullable = false)
 	private int status;
 
-	@ManyToOne(optional=false)
+	@ManyToOne(optional=false, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="configid",referencedColumnName="id")
 	ConfigurationEntity configurationEntity;
 
