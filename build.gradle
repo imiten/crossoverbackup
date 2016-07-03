@@ -20,6 +20,10 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: "war"
 
+springBoot {
+   mainClass = 'crossover.backup.BackupController'
+
+}
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
@@ -55,6 +59,8 @@ dependencies {
     //testCompile 'junit:junit:4.12'
     testCompile ("org.springframework.boot:spring-boot-starter-test")
 }
+
+
 bootRepackage {
     mainClass = 'crossover.backup.BackupController'
 }
@@ -62,6 +68,8 @@ bootRepackage {
 bootRun {
     systemProperties System.properties
 }
+
+
 def applicationProperties = new Properties()
 new File("$projectDir/src/main/resources/application.properties").withInputStream {
     stream -> applicationProperties.load(stream)
@@ -85,3 +93,17 @@ war {
 //        attributes 'Main-Class': 'hello.SampleController'
 //    }
 //}
+
+task clientJar(type: Jar) {
+    appendix = 'client'
+    from sourceSets.main.output
+    exclude('**/*Controller*', '**/*Repository*')
+}
+
+task clientBoot(type: BootRepackage, dependsOn: clientJar) {
+    withJarTask = clientJar
+    //customConfiguration = "mycustomconfiguration"
+    mainClass = 'crossover.backup.ClientAgent'
+}
+
+
