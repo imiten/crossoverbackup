@@ -20,6 +20,9 @@ apply plugin: 'java'
 apply plugin: 'spring-boot'
 apply plugin: "war"
 
+ext {
+  mainClassName = null
+}
 springBoot {
    mainClass = 'crossover.backup.BackupController'
 
@@ -34,6 +37,7 @@ repositories {
 
 configurations {
     providedRuntime
+    client
 }
 
 // In this section you declare the dependencies for your production and test code
@@ -97,13 +101,43 @@ war {
 task clientJar(type: Jar) {
     appendix = 'client'
     from sourceSets.main.output
-    exclude('**/*Controller*', '**/*Repository*')
+    exclude('**/*Controller*', '**/*Repository*', '**/static/**', '**/resources/**', '**/templates/**', '**/*.sql*')
 }
 
 task clientBoot(type: BootRepackage, dependsOn: clientJar) {
     withJarTask = clientJar
-    //customConfiguration = "mycustomconfiguration"
+    customConfiguration = "mycustomconfiguration"
     mainClass = 'crossover.backup.ClientAgent'
+    ext.mainClassName = 'crossover.backup.ClientAgent'
+}
+
+configurations {
+    mycustomconfiguration.exclude module : 'spring-boot-starter-web'
+
 }
 
 
+dependencies {
+    mycustomconfiguration configurations.runtime
+    client  "org.springframework.boot:spring-boot-starter", "org.springframework:spring-web", "com.fasterxml.jackson.core:jackson-databind", "spring-boot-loader"
+}
+
+task myjar(type: Jar) {
+    baseName = 'crossoveragent'
+    appendix = 'client'
+    from sourceSets.main.output
+    exclude('**/*Controller*', '**/*Repository*', '**/static/**', '**/resources/**', '**/templates/**', '**/*.sql*')
+    into('lib') {
+      from configurations.client 
+    }
+    manifest {
+    attributes(
+      'Start-Class': 'crossover.backup.ClientAgent',
+      'Main-Class' : 'org.springframework.boot.loader.JarLauncher'
+    )
+  }
+
+}
+
+//build.dependsOn(clientBoot)
+build.dependsOn(myjar)
