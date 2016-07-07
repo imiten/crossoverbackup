@@ -24,10 +24,11 @@ apply plugin: "war"
 ext {
   mainClassName = null
 }
-*/
 springBoot {
    mainClass = 'crossover.backup.BackupController'
+
 }
+*/
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use 'jcenter' for resolving your dependencies.
@@ -58,11 +59,11 @@ dependencies {
 }
 
 
-/*
 bootRepackage {
     mainClass = 'crossover.backup.BackupController'
 }
 
+/*
 bootRun {
     systemProperties System.properties
 }
@@ -104,7 +105,7 @@ task clientBoot(type: BootRepackage, dependsOn: clientJar) {
     withJarTask = clientJar
     customConfiguration = "mycustomconfiguration"
     mainClass = 'crossover.backup.ClientAgent'
-    //ext.mainClassName = 'crossover.backup.ClientAgent'
+    ext.mainClassName = 'crossover.backup.ClientAgent'
 }
 
 configurations {
@@ -139,5 +140,5 @@ task myjar(type: Jar) {
 
 }
 
-build.dependsOn(clientBoot)
+//build.dependsOn(clientBoot)
 //build.dependsOn(myjar)
