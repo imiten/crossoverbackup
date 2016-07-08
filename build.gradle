@@ -38,8 +38,7 @@ repositories {
 
 configurations {
     providedRuntime
-    client
-    bootloader
+    mycustomconfiguration.exclude module : 'spring-boot-starter-web'
 }
 
 // In this section you declare the dependencies for your production and test code
@@ -55,44 +54,17 @@ dependencies {
     providedRuntime 'org.springframework.boot:spring-boot-starter-tomcat'
 
     testCompile ("org.springframework.boot:spring-boot-starter-test")
+
+    mycustomconfiguration configurations.compile, "org.springframework.boot:spring-boot-starter", "com.fasterxml.jackson.core:jackson-databind"
 }
 
 
-/*
-bootRepackage {
-    mainClass = 'crossover.backup.BackupController'
-}
-
-bootRun {
-    systemProperties System.properties
-}
-
-
-def applicationProperties = new Properties()
-new File("$projectDir/src/main/resources/application.properties").withInputStream {
-    stream -> applicationProperties.load(stream)
-}
-
-
-task bootStop() << {
-    def port = applicationProperties["server.port"]
-    def command = "curl -X POST localhost:$port/shutdown"
-    println command
-    def proc = command.execute()
-    proc.waitFor()
-}
-*/
 
 war {
     baseName = 'crossoverbackup'
     version = '1.0.0-SNAPSHOT'
 }
 
-//jar {
-//    manifest {
-//        attributes 'Main-Class': 'hello.SampleController'
-//    }
-//}
 
 task clientJar(type: Jar) {
     appendix = 'client'
@@ -104,40 +76,6 @@ task clientBoot(type: BootRepackage, dependsOn: clientJar) {
     withJarTask = clientJar
     customConfiguration = "mycustomconfiguration"
     mainClass = 'crossover.backup.ClientAgent'
-    //ext.mainClassName = 'crossover.backup.ClientAgent'
-}
-
-configurations {
-    mycustomconfiguration.exclude module : 'spring-boot-starter-web'
-
-}
-
-
-dependencies {
-    mycustomconfiguration configurations.compile, "org.springframework.boot:spring-boot-starter"
-    client  "org.springframework.boot:spring-boot-starter", "org.springframework:spring-web", "com.fasterxml.jackson.core:jackson-databind"
-    bootloader "org.springframework.boot:spring-boot-loader"
-}
-
-task myjar(type: Jar) {
-    baseName = 'crossoveragent'
-    appendix = 'client'
-    from sourceSets.main.output
-    exclude('**/*Controller*', '**/*Repository*', '**/static/**', '**/resources/**', '**/templates/**', '**/*.sql*')
-    into('lib') {
-      from configurations.client 
-    }
-    into('/') {
-      zipTree(configurations.bootloader.files[0])
-    }
-    manifest {
-    attributes(
-      'Start-Class': 'crossover.backup.ClientAgent',
-      'Main-Class' : 'org.springframework.boot.loader.JarLauncher'
-    )
-  }
-
 }
 
 build.dependsOn(clientBoot)
-//build.dependsOn(myjar)

@@ -9,9 +9,9 @@ public interface ConfigurationRepository extends CrudRepository<ConfigurationEnt
 	 * find configuration list by source ip which is not complete (runEndTimeStamp is null)
 	 * 
 	 * @param sourceIP
-	 * @return configuation entities list with run time stamp past (>=) current time (not expired) and not complete
+	 * @return configuation entities list with run time stamp past (<=) current time (due) and not complete
 	 */
-	@Query("SELECT c FROM ConfigurationEntity c where c.sourceIP = ?1 and c.runStartTimestamp >= now() and c.runEndTimestamp is null")
+	@Query("SELECT c FROM ConfigurationEntity c where c.sourceIP = ?1 and c.runStartTimestamp <=  now() and c.runEndTimestamp is null")
 	public List<ConfigurationEntity> findBySourceIP(String sourceIP);
 	
 }
