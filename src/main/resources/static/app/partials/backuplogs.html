@@ -1,6 +1,15 @@
 <div>
   Backup:
   {{ currentBackup }}
+  
+  <tr ng-repeat="b in configLogList" ng-model="b.id">
+  
+  <td>{{ b.id }}</td>
+  <td>{{ b.log }}</td>
+  <td>{{ b.status }}</td>
+  <td>{{ b.srcip }}</td>
+  </tr>
+
 </div>
 
 

@@ -1,5 +1,6 @@
 app.controller('backupsController', function($scope, $routeParams, configurationFactory) {
   $scope.currentBackup = '';
+  $scope.configLogList = [];
   if($routeParams.activeID) {
     $scope.active = parseInt($routeParams.activeID);
   } 
@@ -17,8 +18,22 @@ app.controller('backupsController', function($scope, $routeParams, configuration
        function(data, status) {
          console.log($routeParams.backupID + ":" + data.name + ":" +  data.sourceIP);
          $scope.editBackup = data;
+         
+         
+         if(data.runEndTimestamp) {
+        	 configurationFactory.getConfigLogList($routeParams.backupID).success(
+        		       function(data, status) {
+        		    	   console.log($routeParams.backupID + ":" + data.length);
+        		    	   $scope.configLogList = data;
+        		    	   
+        		       });	 
+        	 
+         }
+         
        }
       );
+    	
+    	
 
     }
 

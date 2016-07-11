@@ -27,5 +27,11 @@ app.factory('configurationFactory', function($http) {
     return resp;
   }
 
+  factory.getConfigLogList = function(id) {
+	    configLogList = $http.get('agent/' + id + '/configlog');
+	    return configLogList;
+  }
+  
+  
   return factory;
 });
