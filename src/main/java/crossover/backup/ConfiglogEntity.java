@@ -13,6 +13,8 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "configlog")
 public class ConfiglogEntity implements Serializable {
@@ -51,6 +53,7 @@ public class ConfiglogEntity implements Serializable {
 	@Column(name="status", nullable = false)
 	private int status;
 
+	@JsonIgnore
 	@ManyToOne(optional=false, cascade=CascadeType.PERSIST)
 	@JoinColumn(name="configid",referencedColumnName="id")
 	ConfigurationEntity configurationEntity;
@@ -63,6 +66,7 @@ public class ConfiglogEntity implements Serializable {
 	}
 
 	@Transient
+	@JsonIgnore
 	private String srcip;
 
 	public ConfiglogEntity() {}

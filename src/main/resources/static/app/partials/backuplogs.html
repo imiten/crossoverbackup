@@ -1,15 +1,23 @@
-<div>
-  Backup:
-  {{ currentBackup }}
-  
-  <tr ng-repeat="b in configLogList" ng-model="b.id">
-  
-  <td>{{ b.id }}</td>
-  <td>{{ b.log }}</td>
-  <td>{{ b.status }}</td>
-  <td>{{ b.srcip }}</td>
-  </tr>
-
+<div class="container">
+	<h2>Logs for Backup ID: {{ currentBackup }}</h2>
+	<a href="#/backups/active/1" class="btn btn-primary">Back</a>
+	
+	<table class="table">
+		<thead>
+			<tr>
+				<th>ID</th>
+				<th>Log</th>
+				<th>Status</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat="c in configLogList">
+				<td>{{ c.id }}</td>
+				<td>{{ c.log }}</td>
+				<td>{{ c.status }}</td>
+			</tr>
+		</tbody>
+	</table>
 </div>
 
 

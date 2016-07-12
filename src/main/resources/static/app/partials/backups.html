@@ -63,9 +63,9 @@
 	  <td> {{ b.destinationIP }}</td>
 	  <td>
 	    <button  class="btn btn-primary" type="button"
-	      ng-click="deleteBackup(b.id, $index)">Delete</button>
+	      ng-click="deleteBackup(b.id, $index)" ng-disabled="b.runEndTimestamp != null">Delete</button>
 	  </td>
-	  <td><a class="btn btn-primary" href="#/backups/update/{{b.id}}">Edit</a></td>
+	  <td><a class="btn btn-primary" href="#/backups/update/{{b.id}}" ng-disabled="b.runEndTimestamp != null">Edit</a></td>
 	</tr>
       </table>
     </div>

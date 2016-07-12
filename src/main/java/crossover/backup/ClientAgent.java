@@ -24,13 +24,15 @@ public class ClientAgent implements CommandLineRunner {
 	private int max = 6;
 
 	public static void main(String args[]) {
-		SpringApplication.run(ClientAgent.class);
+		SpringApplication.run(ClientAgent.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
 		String srcip = "10.135.140.11";
+		log.info("args size=" + args.length);
 		if(args.length == 1) {
+			log.info("fetching src ip=" + args[0]);
 			srcip = args[0];
 		}
 		restTemplate = new RestTemplate();
@@ -70,9 +72,9 @@ public class ClientAgent implements CommandLineRunner {
 		ResponseEntity<ConfiglogEntity> response = restTemplate.
 				exchange(api, HttpMethod.POST, request, ConfiglogEntity.class);
 		log.debug("log insert resp:" + response.getBody().getId());
-		for (int i=1; i<3; i++) {
+		for (int i=1; i<10; i++) {
 			try {
-				Thread.sleep(ThreadLocalRandom.current().nextInt(min, max + 1));
+				Thread.sleep(ThreadLocalRandom.current().nextInt(min, max + 1) * 1000);
 				vo.log = "Processing Stage: " + i;
 				vo.status = ConfiglogVO.Status.PROGRESS.ordinal();
 				request = new HttpEntity<>(vo);

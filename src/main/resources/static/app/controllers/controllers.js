@@ -19,13 +19,14 @@ app.controller('backupsController', function($scope, $routeParams, configuration
          console.log($routeParams.backupID + ":" + data.name + ":" +  data.sourceIP);
          $scope.editBackup = data;
          
-         
+         //prevents live refresh.  need to add refresh button 
          if(data.runEndTimestamp) {
         	 configurationFactory.getConfigLogList($routeParams.backupID).success(
         		       function(data, status) {
         		    	   console.log($routeParams.backupID + ":" + data.length);
         		    	   $scope.configLogList = data;
-        		    	   
+        		    	   console.log("config log:");
+        		    	   console.log(JSON.stringify($scope.configLogList));
         		       });	 
         	 
          }
