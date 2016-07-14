@@ -12,7 +12,7 @@ app.config(function ($routeProvider) {
         controller: 'backupsController',
         templateUrl: 'app/partials/backups.html'
       })
-    .when('/backups/:backupID',
+    .when('/backups/:configBackupID',
       {
         controller: 'backupsController',
         templateUrl: 'app/partials/backuplogs.html'

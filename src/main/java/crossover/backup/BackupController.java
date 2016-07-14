@@ -1,6 +1,7 @@
 package crossover.backup;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -19,6 +20,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
@@ -71,6 +73,12 @@ public class BackupController  extends WebMvcConfigurerAdapter {
 		}
 	}
 
+	@RequestMapping(value = "/user/adminrole", method = RequestMethod.GET)
+	@ResponseBody
+	public String isAdmin() {
+		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+		return "{ \"data\" : \"" + authorities.contains("admin") + "\"}";
+	}
 
 	@RequestMapping("/")
 	@ResponseBody
@@ -92,7 +100,7 @@ public class BackupController  extends WebMvcConfigurerAdapter {
 	//@ResponseBody
 	public String user() {
 		//return "Hello World user!";
-		return "userbackupshell";
+		return "backupshell.html";
 	}
 
 

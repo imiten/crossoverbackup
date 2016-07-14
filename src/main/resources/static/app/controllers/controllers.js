@@ -1,6 +1,7 @@
 app.controller('backupsController', function($scope, $routeParams, configurationFactory) {
   $scope.currentBackup = '';
   $scope.configLogList = [];
+  $scope.isAdmin = true;
   if($routeParams.activeID) {
     $scope.active = parseInt($routeParams.activeID);
   } 
@@ -12,6 +13,17 @@ app.controller('backupsController', function($scope, $routeParams, configuration
       console.log("init:"  + JSON.stringify(data));
 
     });
+	
+	  configurationFactory.isAdmin.success(function(data, status) {
+		  if(data.data == 'true') {
+			  $scope.isAdmin = true;
+		  } else {
+			  $scope.isAdmin = false;
+		  }
+	      console.log("init isAdmin:"  + JSON.stringify(data));
+
+	    });  
+	  
     $scope.currentBackup = $routeParams.backupID;
     if($routeParams.backupID) {
     	configurationFactory.getConfiguration($routeParams.backupID).success(
@@ -19,24 +31,25 @@ app.controller('backupsController', function($scope, $routeParams, configuration
          console.log($routeParams.backupID + ":" + data.name + ":" +  data.sourceIP);
          $scope.editBackup = data;
          
-         //prevents live refresh.  need to add refresh button 
-         if(data.runEndTimestamp) {
-        	 configurationFactory.getConfigLogList($routeParams.backupID).success(
-        		       function(data, status) {
-        		    	   console.log($routeParams.backupID + ":" + data.length);
-        		    	   $scope.configLogList = data;
-        		    	   console.log("config log:");
-        		    	   console.log(JSON.stringify($scope.configLogList));
-        		       });	 
-        	 
-         }
+         
          
        }
       );
-    	
+    }
+    //prevents live refresh.  need to add refresh button 
+    if($routeParams.configBackupID) {
+       	 configurationFactory.getConfigLogList($routeParams.configBackupID).success(
+       		       function(data, status) {
+       		    	   console.log($routeParams.configBackupID + ":" + data.length);
+       		    	   $scope.configLogList = data;
+       		    	   console.log("config log:");
+       		    	   console.log(JSON.stringify($scope.configLogList));
+       		       });	 
+       	 
+    }	
     	
 
-    }
+    
 
   }//init
 

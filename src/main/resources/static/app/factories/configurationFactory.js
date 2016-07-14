@@ -32,6 +32,12 @@ app.factory('configurationFactory', function($http) {
 	    return configLogList;
   }
   
+
+  factory.isAdmin = function() {
+	    return $http.get('user/adminrole');
+
+  }
+  
   
   return factory;
 });
