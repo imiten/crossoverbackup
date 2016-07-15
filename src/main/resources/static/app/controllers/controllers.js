@@ -14,7 +14,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
 
     });
 	
-	  configurationFactory.isAdmin.success(function(data, status) {
+	  configurationFactory.isAdmin().success(function(data, status) {
 		  if(data.data == 'true') {
 			  $scope.isAdmin = true;
 		  } else {
