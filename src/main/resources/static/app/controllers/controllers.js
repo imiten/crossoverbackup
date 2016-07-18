@@ -19,6 +19,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
 			  $scope.isAdmin = true;
 		  } else {
 			  $scope.isAdmin = false;
+			  $scope.active = 1;//otherwise it will default to 0 and makes it editable but toggle does make the tab disabled
 		  }
 	      console.log("init isAdmin:"  + JSON.stringify(data));
 
