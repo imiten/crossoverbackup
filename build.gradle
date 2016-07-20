@@ -63,6 +63,7 @@ dependencies {
 war {
     baseName = 'crossoverbackup'
     version = '1.0.0-SNAPSHOT'
+    exclude('**/node_modules/**')
 }
 
 
