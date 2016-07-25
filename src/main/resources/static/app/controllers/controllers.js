@@ -2,9 +2,8 @@ app.controller('backupsController', function($scope, $routeParams, configuration
   $scope.currentBackup = '';
   $scope.configLogList = [];
   $scope.isAdmin = true;
-  if($routeParams.activeID) {
-    $scope.active = parseInt($routeParams.activeID);
-  } 
+  $scope.newBackup = {};
+   
   init();
 
   function init() {
@@ -17,13 +16,21 @@ app.controller('backupsController', function($scope, $routeParams, configuration
 	  configurationFactory.isAdmin().success(function(data, status) {
 		  if(data.data == 'true') {
 			  $scope.isAdmin = true;
+			  $scope.active = 0;
 		  } else {
 			  $scope.isAdmin = false;
 			  $scope.active = 1;//otherwise it will default to 0 and makes it editable but toggle does make the tab disabled
 		  }
 	      console.log("init isAdmin:"  + JSON.stringify(data));
-
+	      //add here since its async
+		  if($routeParams.activeID) {
+			    $scope.active = parseInt($routeParams.activeID);
+			  }
 	    });  
+	
+	  if($routeParams.activeID) {
+		    $scope.active = parseInt($routeParams.activeID);
+		  }  
 	  
     $scope.currentBackup = $routeParams.backupID;
     if($routeParams.backupID) {
@@ -55,6 +62,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
   }//init
 
   $scope.insertBackup = function () {
+	  console.log($scope.newBackup);
        configurationFactory.insertConfiguration($scope.newBackup).success( function(data, status) {
           $scope.backups.push(data);
         });

@@ -1,5 +1,6 @@
 app.controller('editBackupsController', function($scope, $routeParams, configurationFactory) {
   $scope.currentBackup = '';
+  $scope.editBackup = {};
 
   init();
 

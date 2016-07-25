@@ -96,7 +96,6 @@ public class ConfigurationEntity implements Serializable {
 	@Column(name="run_end_timestamp", nullable = true)
 	@Temporal(TemporalType.TIMESTAMP) 
 	@JsonFormat(shape=JsonFormat.Shape.STRING, pattern="yyyy/MM/dd HH:mm")
-	@NotNull(message = "error.ce.runStartTimestamp.notnull")
 	private Date runEndTimestamp;
 
 	

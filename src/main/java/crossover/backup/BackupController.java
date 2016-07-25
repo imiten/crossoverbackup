@@ -76,8 +76,9 @@ public class BackupController  extends WebMvcConfigurerAdapter {
 	@RequestMapping(value = "/user/adminrole", method = RequestMethod.GET)
 	@ResponseBody
 	public String isAdmin() {
-		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)    SecurityContextHolder.getContext().getAuthentication().getAuthorities();
-		return "{ \"data\" : \"" + authorities.contains("admin") + "\"}";
+		Collection<SimpleGrantedAuthority> authorities = (Collection<SimpleGrantedAuthority>)   ((UserDetails) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getAuthorities();
+		log.debug("isAdmin authorities: " + authorities.toString());
+		return "{ \"data\" : \"" + authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN")) + "\"}";
 	}
 
 	@RequestMapping("/")

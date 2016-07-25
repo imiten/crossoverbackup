@@ -13,6 +13,7 @@ app.factory('configurationFactory', function($http) {
   } 
 
   factory.insertConfiguration = function(configuration) {
+	console.log('inserting: ' + JSON.stringify(configuration));
     var resp = $http.post('admin/configuration', configuration);
     return resp;
   }

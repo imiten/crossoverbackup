@@ -1,26 +1,36 @@
 <html>
-	<head>
-		<link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
-		<script src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
-		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
-		
-		<script src="js/angular.min.js"></script>
-	    <script src="js/angular-resource.min.js"></script>
-	    <script src="js/angular-route.min.js"></script>
-	    <script src="js/angular-mocks.js"></script>
-	    <script src="js/jquery-1.12.3.min.js"></script>
-	    <script src="js/bootstrap.min.js"></script>
+<head>
+<link rel="stylesheet" type="text/css"
+	href="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.css">
+<script
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/jasmine-html.min.js"></script>
+<script type="text/javascript"
+	src="https://cdnjs.cloudflare.com/ajax/libs/jasmine/2.3.3/boot.min.js"></script>
 
-	    <!-- App libs -->
-	    <script src="app/app.js"></script>
-	    <script src="app/controllers/controllers.js"></script>
-	    <script src="app/controllers/editcontrollers.js"></script>
-	    <script src="app/factories/configurationFactory.js"></script>
-	</head>
-	<body>
-	</body>
-	<script type="text/javascript">
+
+<script src="js/angular.min.js"></script>
+<script src="js/angular-resource.min.js"></script>
+<script src="js/angular-route.min.js"></script>
+<script src="js/jquery-1.12.3.min.js"></script>
+<!--script src="js/bootstrap.min.js"></script-->
+<script src="js/ui-bootstrap-tpls-1.3.3.min.js"></script>
+<script src="js/angular-mocks.js"></script>
+
+<!-- App libs -->
+<script src="app/app.js"></script>
+<script src="app/controllers/controllers.js"></script>
+<script src="app/controllers/editcontrollers.js"></script>
+<script src="app/factories/configurationFactory.js"></script>
+
+
+
+
+</head>
+<body>
+</body>
+<script type="text/javascript">
 
 	describe('configurations', function () {
 		var $controller, $httpBackend;
@@ -31,6 +41,8 @@
 			$controller = _$controller_ ;
 		    $httpBackend = _$httpBackend_;
 		    $httpBackend.whenGET("user/configuration").respond(200, []);
+		    $httpBackend.whenGET("user/adminrole").respond(200, {"data" : true});
+
 		    
 		    var newBackup = {};
 		    newBackup.id  = 1;
