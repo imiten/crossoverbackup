@@ -1,0 +1,47 @@
+create table users (
+  username varchar(256),
+  password varchar(256),
+  enabled boolean,
+  primary key (username)
+);
+
+create table authorities (
+  username varchar(256),
+  authority varchar(256)
+);
+
+
+create table configuration (
+  id int not null auto_increment,
+  name varchar(128) not null,
+  source_ip varchar(256) not null,
+  source_path varchar(1024) not null,
+  source_user varchar(128) not null,
+  source_password varchar(64) not null,
+  destination_ip varchar(256) not null,
+  destination_path varchar(1024) not null,
+  destination_user varchar(128) not null,
+  destination_password varchar(64) not null,
+  enabled boolean,
+  create_timestamp timestamp not null,
+  update_timestamp timestamp,
+  create_user varchar(256) not null,
+  update_user varchar(256),
+  run_start_timestamp timestamp not null,
+  run_end_timestamp timestamp null,
+  primary key (id),
+  foreign key (create_user) references users(username),
+  foreign key (update_user) references users(username)
+);
+
+create table configlog (
+  id int not null auto_increment,
+  log varchar(256) not null,
+  configid int not null,
+  status int not null,
+  date_created TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
+  primary key (id),
+  foreign key (configid) references configuration(id)
+);
+
+

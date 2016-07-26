@@ -7,6 +7,7 @@
 			$controller = _$controller_ ;
 		    $httpBackend = _$httpBackend_;
 		    $httpBackend.whenGET("user/configuration").respond(200, []);
+		    $httpBackend.whenGET("user/adminrole").respond(200, {"data":true});
 		    
 		    var newBackup = {};
 		    newBackup.id  = 1;
