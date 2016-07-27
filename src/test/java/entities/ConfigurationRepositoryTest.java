@@ -27,11 +27,11 @@ public class ConfigurationRepositoryTest {
   @Autowired
   ConfiglogRepository configlogRepository;
   
-    //@Test
+    @Test
 	public void insert() throws Exception {
 		ConfigurationEntity ce = new ConfigurationEntity("local", 
-				"10.135.140.11", "d\\software", "miten.mehta", "password1",
-                "10.135.140.12", "d\\software\\backup", "miten.mehta", "password2", 
+				"10.135.140.11", "\\\\software\\one", "miten.mehta", "password1",
+                "10.135.140.12", "\\\\software\\backup", "miten.mehta", "password2", 
                 new Date());
 		ce.setCreateUser("admin");
 		ce = repository.save(ce);
@@ -46,7 +46,7 @@ public class ConfigurationRepositoryTest {
     
 
     
-    @Test
+    //@Test
 	public void testConfiglogInsert() throws Exception {
 		
 		ConfigurationEntity ce = repository.findOne(1);

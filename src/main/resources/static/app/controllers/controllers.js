@@ -65,6 +65,7 @@ app.controller('backupsController', function($scope, $routeParams, configuration
 	  console.log($scope.newBackup);
        configurationFactory.insertConfiguration($scope.newBackup).success( function(data, status) {
           $scope.backups.push(data);
+          alert(data.id + " created");
         });
         $scope.newBackup = {};
      

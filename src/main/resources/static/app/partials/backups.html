@@ -5,13 +5,13 @@
 
   <uib-tab index="0" heading="New Backup" id="new_backup" disable="!isAdmin">
   <h3>Crete New Backup</h3>
-  <form role="form">
+  <form role="form" name="newbackupform">
     <div class="row">
       <div class="form-group col-md-6">
 	<label for="id_name">Backup Name:</label>
 	<input id="id_name" class="form-control margin-bottom" ng-model="newBackup.name" ng-trim="false" type="text" placeholder="Backup Name" required>
 	<label for="id_runtime">Run at:</label>
-	<input id="id_runtime" class="form-control" ng-model="newBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required>
+	<input id="id_runtime" class="form-control" ng-model="newBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required pattern="\d{4}/\d{2}/\d{2} \d{2}:\d{2}">
       </div>
     </div>
 
@@ -39,11 +39,12 @@
       </div>
     </div>
 
-
+<!--  ng-disabled="!newBackup.name || !newBackup.sourceIP || !newBackup.sourcePath || !newBackup.sourceUser || !newBackup.sourcePassword || !newBackup.destinationIP || !newBackup.destinationPath || !newBackup.destinationUser || !newBackup.destinationPassword"
+	   -->
     <div class="row">
       <div class="form-group col-md-1">
 	<button id="submitBackup" class="btn btn-primary" type="button"
-	  ng-disabled="!newBackup.name || !newBackup.sourceIP || !newBackup.sourcePath || !newBackup.sourceUser || !newBackup.sourcePassword || !newBackup.destinationIP || !newBackup.destinationPath || !newBackup.destinationUser || !newBackup.destinationPassword"
+	  ng-disabled="newbackupform.$invalid"
 	  ng-click="insertBackup()">Add Backup</button>
       </div>
     </div>

@@ -1,13 +1,13 @@
 <div class="container">
   <h2>Backups App</h2>
   <h3>Edit Backup</h3>
-  <form role="form">
+  <form role="form" name="editbackupform">
     <div class="row">
       <div class="form-group col-md-6">
 	<label for="id_name">Backup Name:</label>
 	<input id="id_name" class="form-control margin-bottom" ng-model="editBackup.name" ng-trim="false" type="text" placeholder="Backup Name" required>
 	<label for="id_runtime">Run at:</label>
-	<input id="id_runtime" class="form-control" ng-model="editBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required>
+	<input id="id_runtime" class="form-control" ng-model="editBackup.runStartTimestamp" ng-trim="false" type="text" placeholder="yyyy/MM/dd HH:mm" required pattern="\d{4}/\d{2}/\d{2} \d{2}:\d{2}">
       </div>
     </div>
 
@@ -35,11 +35,13 @@
       </div>
     </div>
 
-
+<!-- 	  ng-disabled="!editBackup.name || !editBackup.sourceIP || !editBackup.sourcePath || !editBackup.sourceUser || !editBackup.sourcePassword || !editBackup.destinationIP || !editBackup.destinationPath || !editBackup.destinationUser || !editBackup.destinationPassword" 
+ -->
     <div class="row">
       <div class="form-group col-md-3">
 	<button id="submitBackup" class="btn btn-primary" type="button" 
-	  ng-disabled="!editBackup.name || !editBackup.sourceIP || !editBackup.sourcePath || !editBackup.sourceUser || !editBackup.sourcePassword || !editBackup.destinationIP || !editBackup.destinationPath || !editBackup.destinationUser || !editBackup.destinationPassword" 
+		  ng-disabled="editbackupform.$invalid"
+	
 	  ng-click="updateBackup()">Update Backup</button>
 	<a href="#/backups/active/1" class="btn btn-primary">Back</a>
 
